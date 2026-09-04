@@ -1,0 +1,41 @@
+// Prisma schema for DBMS Lab Assignment
+// Normalized Dual-Table Schema: User Authentication and Course Catalog
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  fullName     String
+  email        String   @unique
+  passwordHash String
+  phone        String
+  gender       Gender
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([email])
+  @@index([createdAt])
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+model Course {
+  id          String  @id @default(uuid())
+  title       String
+  code        String  @unique
+  credits     Int
+  description String?
+
+  @@index([code])
+}
