@@ -12,7 +12,17 @@ export async function GET(req: NextRequest) {
 
     const payload = await verifyToken(token);
     if (!payload) {
-      return NextResponse.json({ user: null }, { status: 401 });
+      const response = NextResponse.json({ user: null }, { status: 401 });
+      response.cookies.set({
+        name: AUTH_COOKIE_NAME,
+        value: '',
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 0,
+        path: '/',
+      });
+      return response;
     }
 
     // Fetch up-to-date user details from PostgreSQL (excluding passwordHash)
@@ -30,7 +40,18 @@ export async function GET(req: NextRequest) {
     });
 
     if (!user) {
-      return NextResponse.json({ user: null }, { status: 401 });
+      // User from previous database/session not found in current database
+      const response = NextResponse.json({ user: null }, { status: 401 });
+      response.cookies.set({
+        name: AUTH_COOKIE_NAME,
+        value: '',
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 0,
+        path: '/',
+      });
+      return response;
     }
 
     return NextResponse.json({ user });

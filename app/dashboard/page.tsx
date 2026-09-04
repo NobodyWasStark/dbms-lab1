@@ -104,7 +104,8 @@ export default function DashboardPage() {
       try {
         const res = await fetch('/api/auth/session');
         if (!res.ok) {
-          router.push('/login?from=/dashboard');
+          setIsLoadingSession(false);
+          router.replace('/login?from=/dashboard');
           return;
         }
         const data = await res.json();
@@ -117,8 +118,8 @@ export default function DashboardPage() {
         }
       } catch {
         if (!ignore) {
-          router.push('/login?from=/dashboard');
           setIsLoadingSession(false);
+          router.replace('/login?from=/dashboard');
         }
       }
     }
@@ -167,11 +168,17 @@ export default function DashboardPage() {
   if (isLoadingSession) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-[#09090b] text-zinc-400">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-7 h-7 border-2 border-zinc-400 border-t-transparent rounded-full animate-spin" />
-          <p className="text-xs font-mono tracking-widest text-zinc-500 uppercase">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-8 h-8 border-2 border-zinc-400 border-t-transparent rounded-full animate-spin" />
+          <p className="text-xs font-mono tracking-widest text-zinc-400 uppercase">
             Connecting to PostgreSQL...
           </p>
+          <a
+            href="/login"
+            className="text-xs text-zinc-500 hover:text-zinc-300 underline underline-offset-4 mt-2 transition-colors"
+          >
+            Session expired? Click to Sign In
+          </a>
         </div>
       </div>
     );
