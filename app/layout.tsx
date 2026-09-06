@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: 'DBMS Lab Portal | Full-Stack PostgreSQL Registration & Login System',
   description:
     'A university DBMS laboratory assignment featuring PostgreSQL 16, Prisma ORM, custom JWT session management, bcrypt hashing, and animated UI with Framer Motion and GSAP.',
+  other: {
+    'darkreader-lock': 'true',
+  },
 };
 
 export default function RootLayout({
@@ -28,8 +31,16 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-[#070b14] text-slate-100 font-sans selection:bg-indigo-500/30 selection:text-white">
+      <head>
+        <meta name="darkreader-lock" content="true" />
+        <meta name="color-scheme" content="dark" />
+      </head>
+      <body
+        className="min-h-full flex flex-col bg-[#070b14] text-slate-100 font-sans selection:bg-indigo-500/30 selection:text-white"
+        suppressHydrationWarning
+      >
         <ToastProvider>{children}</ToastProvider>
       </body>
     </html>

@@ -31,9 +31,13 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-[#09090b]">
+    <div
+      ref={containerRef}
+      className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-[#09090b]"
+      suppressHydrationWarning
+    >
       {/* High-Quality Professional Data Center Background */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" suppressHydrationWarning>
         <Image
           src="/hero-bg.jpg"
           alt="Enterprise Database Infrastructure"
@@ -41,6 +45,7 @@ export default function LandingPage() {
           priority
           quality={75}
           className="object-cover object-center opacity-30"
+          suppressHydrationWarning
         />
         {/* Subtle Vignette & Depth Gradients */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#09090b]/75 via-[#09090b]/85 to-[#09090b]" />
@@ -66,8 +71,8 @@ export default function LandingPage() {
               <Image
                 src="/postgres.svg"
                 alt="PostgreSQL Logo"
-                width={22}
-                height={22}
+                width={20}
+                height={20}
                 className="w-5 h-5 object-contain"
               />
             </div>
@@ -115,7 +120,7 @@ export default function LandingPage() {
           <span className="text-zinc-300 font-medium">University DBMS Lab Project</span>
           <span className="text-zinc-600">•</span>
           <span className="text-zinc-400 font-mono text-[11px] flex items-center gap-1">
-            <Image src="/postgres.svg" alt="PostgreSQL" width={12} height={12} className="inline-block" />
+            <Image src="/postgres.svg" alt="PostgreSQL" width={12} height={12} className="w-3 h-3 inline-block" />
             PostgreSQL 16
           </span>
           <span className="text-zinc-500 text-[10px] pl-0.5">→</span>

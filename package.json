@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "node -e \"if(!require('fs').existsSync('.env') && require('fs').existsSync('.env.example')) require('fs').copyFileSync('.env.example', '.env')\" && next dev",
+    "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "prisma generate",
+    "db:seed": "prisma db seed",
+    "db:push": "prisma db push"
   },
   "dependencies": {
     "@prisma/client": "6.19.3",
